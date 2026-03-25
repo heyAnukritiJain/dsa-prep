@@ -1,0 +1,19 @@
+class Solution {
+public:
+    int characterReplacement(string s, int k) {
+        unordered_map<char, int>freq;
+        int maxWindow = 0, left = 0, maxFreq = 0;
+        for( int right = 0; right < s.size(); right++ ) {
+            freq[s[right]]++;
+            maxFreq = max(maxFreq, freq[s[right]]);
+            int windowLength = right - left + 1;
+            if ( windowLength - maxFreq > k) {
+                freq[s[left]]--;
+                left++;
+            }
+            windowLength = right - left + 1;
+            maxWindow = max(maxWindow, windowLength);
+        }    
+        return maxWindow;
+    }
+};
